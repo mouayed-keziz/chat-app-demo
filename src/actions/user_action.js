@@ -1,3 +1,4 @@
+//this module contains all the functions that are used to interact with the firebase database
 import { createUserWithEmailAndPassword, GoogleAuthProvider, signInWithEmailAndPassword, signInWithPopup } from 'firebase/auth';
 import { auth, db } from '../firebase';
 import { setDoc, doc, collection, getDocs } from 'firebase/firestore';

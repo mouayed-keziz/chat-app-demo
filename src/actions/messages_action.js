@@ -1,10 +1,6 @@
 import { db } from '../firebase';
 import { setDoc, doc, collection } from 'firebase/firestore';
 
-//how to compare two strings in javascript
-
-
-
 const addMessage = (message, senderId, receiverId) => {
     const senderIsBigger = senderId.localeCompare(receiverId);
     if (senderIsBigger === -1) {
@@ -12,6 +8,7 @@ const addMessage = (message, senderId, receiverId) => {
         senderId = receiverId;
         receiverId = temp;
     }
+
     //now we are sure that the sender id is bigger than the receiver id
 
     const id = senderId + receiverId;
