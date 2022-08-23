@@ -1,24 +1,11 @@
-import { getAllUsers } from "../actions/user_action";
-import { useState } from "react";
+
+import { addMessage } from "../actions/messages_action";
 export default function Debugging() {
-    const [data, setData] = useState([]);
     return (
         <div className="login">
             <button onClick={() => {
-                getAllUsers().then(res => {
-                    setData(res);
-                }
-                );
-            }
-            }>get all users</button>
-            {data.map(element => {
-                return (
-                    <div key={element}>
-                        <p>{element}</p>
-                    </div>
-                );
-            }
-            )}
+                addMessage("keziz mouayed World", "111", "333");
+            }}>add message</button>
         </div>
     );
 }

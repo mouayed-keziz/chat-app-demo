@@ -1,5 +1,5 @@
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
-import { ChatPage, LoginForm, RegisterForm, Info, Debugging } from "./pages/pages";
+import { ChatPage, LoginForm, RegisterForm, Info, Debugging, ChatRoom } from "./pages/pages";
 import { auth } from "./firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
 
@@ -9,11 +9,14 @@ export default function App() {
       <Navigation />
       <Routes>
         <Route path="/login" element={<LoginForm />} />
+        <Route path="/login/:id" element={<LoginForm />} />
         <Route path="/register" element={<RegisterForm />} />
-        <Route path="chat" element={<ChatPage />} />
-        <Route path="/chat/:roomId" element={<ChatPage />} />
+        <Route path="/chat" element={<ChatPage />} />
+        <Route path="/chatRoom/:id" element={<ChatRoom />} />
         <Route path="/info" element={<Info />} />
         <Route path="/debugging" element={<Debugging />} />
+
+        <Route path="*" element={<div>page not found (404)</div>} />
       </Routes>
     </Router>
   );
@@ -35,11 +38,10 @@ function Navigation() {
       <Link to="/chat">Chat</Link>
       <Link to={"/info"} >Info</Link>
       <Link to={"/debugging"}>Debugging</Link>
-      {user ? <a href="/login" style={{ cursor: "pointer" }} onClick={() => auth.signOut()}>Logout</a> : null}
+      {user ? <Link to="/login" style={{ cursor: "pointer" }} onClick={() => auth.signOut()}>Logout</Link> : null}
     </nav>
   );
 }
-
 
 
 

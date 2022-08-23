@@ -56,7 +56,7 @@ export function LoginForm() {
     const navigate = useNavigate();
     useEffect(() => {
         if (user) {
-            navigate("/chat");
+            navigate("/chat/");
         }
     }, [navigate, user]);
 

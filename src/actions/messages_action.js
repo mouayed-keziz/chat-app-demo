@@ -1,7 +1,7 @@
 import { db } from '../firebase';
-import { setDoc, doc, collection } from 'firebase/firestore';
+import { setDoc, getDoc, updateDoc, doc, onSnapshot } from 'firebase/firestore';
 
-const addMessage = (message, senderId, receiverId) => {
+const addMessage = async (message, senderId, receiverId) => {
     const senderIsBigger = senderId.localeCompare(receiverId);
     if (senderIsBigger === -1) {
         const temp = senderId;
@@ -9,17 +9,49 @@ const addMessage = (message, senderId, receiverId) => {
         receiverId = temp;
     }
 
-    //now we are sure that the sender id is bigger than the receiver id
 
-    const id = senderId + receiverId;
-    await setDoc(doc(db, "conversations", id), {
-        user1: senderId,
-        user2: receiverId,
+    const id = senderId + receiverId;//now we are sure that the sender id is bigger than the receiver id
+
+    const docRef = doc(db, "conversations", id);
+    const docSnap = await getDoc(docRef);
+
+    if (docSnap.exists()) {
+        console.log("Document data:", docSnap.data());
+        const messages = docSnap.data().messages;
+        messages.push({
+            message: message,
+            time: new Date().getDay() + "/" + new Date().getMonth() + "/" + new Date().getFullYear() + " " + new Date().getHours() + ":" + new Date().getMinutes()
+        });
+        await updateDoc(docRef, {
+            messages: messages
+        });
+    } else {
+        console.log("No such document!");
+        await setDoc(doc(db, "conversations", id), {
+            user1: senderId,
+            user2: receiverId,
+            messages: [{
+                message: message,
+                time: new Date().getDay() + "/" + new Date().getMonth() + "/" + new Date().getFullYear() + " " + new Date().getHours() + ":" + new Date().getMinutes()
+            }]
+        });
+    }
+}
+
+
+const getMessages = async (senderId, receiverId) => {
+    const senderIsBigger = senderId.localeCompare(receiverId);
+    if (senderIsBigger === -1) {
+        const temp = senderId;
+        senderId = receiverId;
+        receiverId = temp;
+    }
+    const id = senderId + receiverId;//now we are sure that the sender id is bigger than the receiver id
+
+    const unsub = onSnapshot(doc(db, "conversations", id), (doc) => {
+        return doc.data().messages;
     });
-    console.log("db done");
 }
 
 
-
-const getMessages = (senderId, receiverId) => {
-}
+export { addMessage, getMessages };
