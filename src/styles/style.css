@@ -76,5 +76,15 @@ nav li a {
   border: none;
 }
 .app .login button:hover {
-  background-color: rgb(34, 61, 123);
+  background-color: rgb(46, 46, 46);
+}
+.app .login .error {
+  color: rgb(255, 0, 0);
+  font-size: 0.8rem;
+  margin-top: 0.5rem;
+}
+.app .login .success {
+  color: rgb(30, 147, 30);
+  font-size: 0.8rem;
+  margin-top: 0.5rem;
 }/*# sourceMappingURL=style.css.map */

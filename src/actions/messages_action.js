@@ -48,7 +48,7 @@ const getMessages = async (senderId, receiverId) => {
     }
     const id = senderId + receiverId;//now we are sure that the sender id is bigger than the receiver id
 
-    const unsub = onSnapshot(doc(db, "conversations", id), (doc) => {
+    onSnapshot(doc(db, "conversations", id), (doc) => {
         return doc.data().messages;
     });
 }

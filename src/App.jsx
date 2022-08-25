@@ -1,7 +1,5 @@
 import { BrowserRouter as Router, Routes, Route, Link, Navigate } from "react-router-dom";
-import { Login, Register, Info, Debugging } from "./pages/_index";
-import { auth } from "./firebase";
-import { useAuthState } from "react-firebase-hooks/auth";
+import { Login, Register, Info, Debugging, UpdateProfile } from "./pages/_index";
 import { AuthContext } from "./context/AuthContext";
 import { useContext } from "react";
 
@@ -17,7 +15,6 @@ export default function App() {
     return (currentUser ? <Navigate to={"/"} /> : children);
   }
 
-  console.log("currentuserr : " + currentUser);
 
   return (
     <Router>
@@ -28,6 +25,7 @@ export default function App() {
           <Route path="/login" element={<RequireNoAuth><Login /></RequireNoAuth>} />
           <Route path="/register" element={<RequireNoAuth><Register /></RequireNoAuth>} />
           <Route path="/info" element={<RequireAuth><Info /></RequireAuth>} />
+          <Route path="/edit" element={<RequireAuth><UpdateProfile /></RequireAuth>} />
           <Route path="/debugging" element={<Debugging />} />
           <Route path="*" element={<Error404 />} />
         </Routes>
@@ -38,16 +36,18 @@ export default function App() {
 
 
 function Navigation() {
-  const [user] = useAuthState(auth);
+  const { currentUser, dispatch } = useContext(AuthContext);
   return (
     <nav className="nav">
       <li><Link to={"/"}>Home</Link></li>
-      <li><Link to="/login">Login</Link></li>
-      <li><Link to="/register">Register</Link></li>
-      <li><Link to="/chat">Chat</Link></li>
-      <li><Link to={"/info"} >Info</Link></li>
+      {!currentUser && <li><Link to="/login">Login</Link></li>}
+      {!currentUser && <li><Link to="/register">Register</Link></li>}
+
+      {currentUser && <li><Link to="/chat">Chat</Link></li>}
+      {currentUser && <li><Link to={"/info"} >Info</Link></li>}
       <li><Link to={"/debugging"}>Debugging</Link></li>
-      {user ? <Link to="/login" style={{ cursor: "pointer" }} onClick={() => auth.signOut()}>Logout</Link> : null}
+      {currentUser && <li><Link to={"/edit"}>Edit Account</Link></li>}
+      {currentUser && <li><Link to={"/login"} onClick={() => dispatch({ type: "LOGOUT" })}>Logout</Link></li>}
     </nav>
   );
 }

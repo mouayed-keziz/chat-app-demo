@@ -3,6 +3,7 @@ import Login from "./Login";
 import Register from "./Register";
 import Info from "./Info";
 import Debugging from "./Debugging";
+import UpdateProfile from "./UpdateProfile";
 import { ChatRoom } from "./ChatPage";
 export {
     ChatPage,
@@ -10,5 +11,6 @@ export {
     Register,
     Info,
     Debugging,
-    ChatRoom
+    ChatRoom,
+    UpdateProfile
 };

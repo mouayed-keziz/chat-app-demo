@@ -1,6 +1,9 @@
-import { useState } from "react";
-import { RegisterWithFirebase } from "../actions/user_action";
-import { RegisterWithGoogle } from "../actions/user_action";
+import { useContext, useState } from "react";
+import { auth, db } from "../firebase";
+import { setDoc, doc } from 'firebase/firestore';
+import { createUserWithEmailAndPassword, GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
+import { AuthContext } from "../context/AuthContext";
+import { useNavigate } from "react-router-dom";
 
 export default function Register() {
 
@@ -8,9 +11,50 @@ export default function Register() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
-    const registerHandler = (e) => {
+    const { dispatch } = useContext(AuthContext);
+    const navigate = useNavigate();
+
+    const registerHandler = async (e) => {
         e.preventDefault();
-        RegisterWithFirebase(email, password, username);
+        createUserWithEmailAndPassword(auth, email, password)
+            .then((userCredential) => {
+                const user = userCredential.user;
+                setDoc(doc(db, "users", user.uid), {
+                    displayName: username,
+                    uid: user.uid,
+                    email: user.email,
+                    photoURL: user.photoURL,
+                });
+                user.displayName = username;
+                console.log(user);
+                dispatch({ type: "LOGIN", payload: user });
+                navigate("/");
+            }).catch((error) => {
+                const errorMessage = error.message;
+                console.log(errorMessage)
+            });
+    }
+
+    const GoogleHandeler = async (e) => {
+        e.preventDefault();
+        const provider = new GoogleAuthProvider();
+        signInWithPopup(auth, provider)  // signInWithRedirect(provider)
+            .then((userCredential) => {
+                const user = userCredential.user;
+                console.log(user);
+                setDoc(doc(db, "users", user.uid), {
+                    displayName: user.displayName,
+                    uid: user.uid,
+                    email: user.email,
+                    photoURL: user.photoURL,
+                });
+                dispatch({ type: "LOGIN", payload: user });
+                navigate("/");
+            }).catch((error) => {
+                const errorMessage = error.message;
+                console.log(errorMessage);
+            }
+            );
     }
 
     return (
@@ -22,9 +66,8 @@ export default function Register() {
                     <input value={email} onChange={e => setEmail(e.target.value)} type="email" placeholder="email" />
                     <input value={password} onChange={e => setPassword(e.target.value)} type="password" placeholder="password" />
                     <button type="submit">Register</button>
-                    <button onClick={RegisterWithGoogle}>Register with google</button>
+                    <button onClick={GoogleHandeler}>Register with google</button>
                 </form>
-
             </div>
         </div>
     );
