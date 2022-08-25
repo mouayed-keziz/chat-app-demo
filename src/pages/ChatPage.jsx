@@ -1,84 +1,41 @@
-import { auth } from "../firebase"
-import { useAuthState } from "react-firebase-hooks/auth";
-import { useNavigate, useParams } from "react-router-dom";
-import { useState, useEffect } from "react";
-import { GetAllUsers } from "../actions/user_action";
+import { collection, getDocs } from "firebase/firestore";
+import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import { db } from "../firebase";
 
 export default function ChatPage() {
 
+    const { id } = useParams();
 
-
-    const [contacts, setContacts] = useState([]);
+    const [user, setUser] = useState(null);
     useEffect(() => {
-        GetAllUsers().then(res => {
-            setContacts(res);
-        });
-    }, []);
+        const getUser = async () => {
+            const querySnapshot = await getDocs(collection(db, "users"), id);
+            setUser(querySnapshot.docs[0].data());
+        }
+        getUser();
+    }, [id]);
+    console.log(user);
 
-
-    return (
-        <div className="">
-            {contacts.length > 0 ?
-                <ul>
-                    {contacts.map(element => {
-                        return (
-                            <li key={element.uid}>
-                                <a href={"/chatroom/" + element.name}> {element.name}</a>
-                            </li>
-                        );
-                    })}
-                </ul> : (<div>loading...</div>)
-            }
-        </div >
-    );
-}
-
-
-export function ChatRoom(props) {
-    const [user] = useAuthState(auth);
-    const params = useParams();
-    const navigate = useNavigate();
-    const roomId = params.id;
-    const [person, setPerson] = useState([]);
-    const [messages, setMessages] = useState([]);
-    setMessages("")
-    useEffect(() => {
-        GetAllUsers().then(res => {
-            const result = res.find(element => element.name === roomId);
-            if (result) {
-                setPerson(result);
-                //setMessages((getMessages(user.uid, result.uid)));
-            }
-            else {
-                navigate("/chat");
-            }
-        });
-    }, [navigate, roomId, user.uid]);
 
     return (
         <div>
-            <h3>ChatRoom</h3>
-            <p>{roomId}</p>
-            {person ? <div> {person.uid} </div> : null}
-            <div style={{ height: "300px", overflow: "scroll" }}>
-                {messages.length > 0 ?
-                    <ul>
-                        {messages.map(element => {
-                            return (
-                                <li key={element.id}>
-                                    <div>{element.message}</div>
-                                    <div>{element.timestamp}</div>
-                                </li>
-                            );
-                        })}
-                    </ul> : (<div>loading...</div>)
-                }
-
-            </div>
-            <form>
-                <input type="text" />
-                <button type="submit">Send</button>
-            </form>
+            {user ? (
+                <div className="chatpage">
+                    <div className="chatHeader">
+                        <img src={user.photoURL} alt={user.displayName} />
+                        <h3>{user.displayName}</h3>
+                    </div>
+                    <div className="messagesSection">
+                        <li className="message send">qq</li>
+                        <li className="message received">qq</li>
+                    </div>
+                    <form className="messageInputSection">
+                        <input type="text" placeholder="Type a message..." />
+                        <button>Send</button>
+                    </form>
+                </div>
+            ) : <p>loading...</p>}
         </div>
     );
 }

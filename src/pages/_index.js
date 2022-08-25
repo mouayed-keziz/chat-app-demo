@@ -1,16 +1,16 @@
-import ChatPage from "./ChatPage";
+import Inbox from "./Inbox";
 import Login from "./Login";
 import Register from "./Register";
 import Info from "./Info";
 import Debugging from "./Debugging";
 import UpdateProfile from "./UpdateProfile";
-import { ChatRoom } from "./ChatPage";
+import ChatPage from "./ChatPage";
 export {
-    ChatPage,
+    Inbox,
     Login,
     Register,
     Info,
     Debugging,
-    ChatRoom,
-    UpdateProfile
+    UpdateProfile,
+    ChatPage
 };

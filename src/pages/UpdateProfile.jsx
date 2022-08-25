@@ -3,14 +3,14 @@ import { AuthContext } from "../context/AuthContext"
 import { db, storage } from "../firebase"
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import { doc, updateDoc } from "firebase/firestore";
+import { useNavigate } from "react-router-dom";
 
 
 export default function UpdateProfile() {
 
-    const { currentUser } = useContext(AuthContext);
+    const { currentUser, dispatch } = useContext(AuthContext);
 
     const [displayName, setDisplayName] = useState(currentUser.displayName);
-    const [email] = useState(currentUser.email);
     const [uid] = useState(currentUser.uid);
 
     const [file, setFile] = useState(null);
@@ -51,32 +51,30 @@ export default function UpdateProfile() {
             );
         }
         file && uploadFile();
-    }, [file]);
+    }, [file, uid]);
+
+    const navigate = useNavigate();
 
     const submitHandler = async (e) => {
         e.preventDefault();
-        if (finished) {
-            const user = {
-                displayName,
-                photoURL
-            }
-            await updateDoc(doc(db, "users", uid), user)
+        const user = {
+            displayName,
+            photoURL: photoURL,
         }
+        await updateDoc(doc(db, "users", uid), user);
+        dispatch({ type: "UPDATE_USER", payload: user });
+        navigate("/");
     }
 
     return (
-        <div className="login">
+        <div className="login card">
             <h3>Update Profile</h3>
             <form onSubmit={submitHandler}>
 
-                <label htmlFor="photoURL">uid</label>
-                <input type="text" value={uid} disabled />
 
                 <label htmlFor="displayName">Display Name</label>
                 <input type="text" value={displayName} onChange={(e) => setDisplayName(e.target.value)} />
 
-                <label htmlFor="photoURL">Email</label>
-                <input type="text" value={email} disabled />
 
 
                 <label htmlFor="photoURL">Photo URL</label>
@@ -85,7 +83,6 @@ export default function UpdateProfile() {
                     setFile(e.target.files[0]);
                     setPhotoURL(URL.createObjectURL(e.target.files[0]));
                 }} />
-                {/*progress with no digits after comma and*/}
                 {progress > 0 && <progress value={progress} max="100" />}
                 {error && <span className="error">Something went wrong!</span>}
                 {finished && <span className="success">Upload finished!</span>}

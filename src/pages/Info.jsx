@@ -9,7 +9,7 @@ export default function Info() {
 
     return (
         <div>
-            <div className="login">
+            <div className="login card">
                 <h1>Info</h1>
                 <h2>Current User</h2>
                 <p><strong>username:</strong>{currentUser.displayName}</p>

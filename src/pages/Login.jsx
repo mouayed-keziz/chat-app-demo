@@ -42,7 +42,7 @@ export default function Login() {
     }
 
     return (
-        <div className="login">
+        <div className="login card">
             <h3>Login</h3>
             <form onSubmit={loginHandler}>
                 <input value={email} onChange={e => setEmail(e.target.value)} type="email" placeholder="email" />

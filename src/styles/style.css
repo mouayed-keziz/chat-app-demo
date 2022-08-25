@@ -87,4 +87,191 @@ nav li a {
   color: rgb(30, 147, 30);
   font-size: 0.8rem;
   margin-top: 0.5rem;
+}
+
+.card {
+  padding: 30px;
+  background-color: rgb(219, 218, 218);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
+  margin: 1rem;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 90vh;
+  width: 100%;
+  padding: 0 20px;
+}
+.container .left {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 50%;
+  height: 100%;
+  padding: 0 20px;
+}
+.container .left h1 {
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+}
+.container .left p {
+  font-size: 1rem;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+.container .left button {
+  background-color: rgb(0, 0, 0);
+  color: rgb(255, 255, 255);
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  margin-top: 0.5rem;
+  width: 100%;
+  padding: 0.5rem;
+  margin-bottom: 0.5rem;
+  border-radius: 5px;
+  border: none;
+}
+.container .left button:hover {
+  background-color: rgb(46, 46, 46);
+}
+.container .right {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 50%;
+  height: 100%;
+  padding: 0 20px;
+}
+.container .right h1 {
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+}
+.container .right p {
+  font-size: 1rem;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+.container .right button {
+  background-color: rgb(0, 0, 0);
+  color: rgb(255, 255, 255);
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  margin-top: 0.5rem;
+  width: 100%;
+  padding: 0.5rem;
+  margin-bottom: 0.5rem;
+  border-radius: 5px;
+  border: none;
+}
+.container .right button:hover {
+  background-color: rgb(46, 46, 46);
+}
+
+.chatCard {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  padding: 0 20px;
+}
+.chatCard img {
+  width: 100%;
+  height: 100%;
+}
+.chatCard h3 {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+.chatpage {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  width: 100%;
+  height: 100%;
+  margin-bottom: 10px;
+}
+.chatpage .chatHeader {
+  display: flex;
+  font-display: row;
+  align-items: center;
+  justify-content: flex-start;
+}
+.chatpage .chatHeader img {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+.chatpage .messagesSection {
+  width: 70vw;
+  height: 70vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  overflow: scroll;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.chatpage .messagesSection::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+}
+.chatpage .messagesSection .message {
+  width: 100%;
+  height: 20px;
+  background-color: rgb(255, 255, 255);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  border: none;
+  padding: 10px 0;
+  font-size: 1rem;
+  font-weight: bold;
+  color: rgb(0, 0, 0);
+}
+.chatpage .messagesSection .send {
+  justify-content: flex-end;
+}
+.chatpage .messagesSection .received {
+  justify-content: flex-start;
+}
+.chatpage .messageInputSection {
+  width: 70vw;
+  height: 10vh;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+.chatpage .messageInputSection input {
+  width: 90%;
+  height: 20px;
+  border-radius: 5px;
+  padding: 3px;
+}
+.chatpage .messageInputSection button {
+  height: 30px;
+  border-radius: 5px;
+  padding: 6px;
 }/*# sourceMappingURL=style.css.map */

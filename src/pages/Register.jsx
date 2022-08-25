@@ -58,7 +58,7 @@ export default function Register() {
     }
 
     return (
-        <div className="login">
+        <div className="login card">
             <div className="login">
                 <h3>Register</h3>
                 <form className="loginForm" onSubmit={registerHandler}>
