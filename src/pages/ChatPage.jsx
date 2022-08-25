@@ -1,24 +1,16 @@
 import { auth } from "../firebase"
 import { useAuthState } from "react-firebase-hooks/auth";
-import { useNavigate, useParams, Link } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
-import { getAllUsers } from "../actions/user_action";
-import { getMessages } from "../actions/messages_action";
+import { GetAllUsers } from "../actions/user_action";
 
-export default function ChatPage(props) {
-    const [user] = useAuthState(auth);
-    const navigate = useNavigate();
+export default function ChatPage() {
 
-    useEffect(() => {
-        if (user == null) {
-            navigate("/login/");
-        }
-    }, [navigate, user]);
 
 
     const [contacts, setContacts] = useState([]);
     useEffect(() => {
-        getAllUsers().then(res => {
+        GetAllUsers().then(res => {
             setContacts(res);
         });
     }, []);
@@ -49,12 +41,13 @@ export function ChatRoom(props) {
     const roomId = params.id;
     const [person, setPerson] = useState([]);
     const [messages, setMessages] = useState([]);
+    setMessages("")
     useEffect(() => {
-        getAllUsers().then(res => {
+        GetAllUsers().then(res => {
             const result = res.find(element => element.name === roomId);
             if (result) {
                 setPerson(result);
-                setMessages((getMessages(user.uid, result.uid));
+                //setMessages((getMessages(user.uid, result.uid)));
             }
             else {
                 navigate("/chat");

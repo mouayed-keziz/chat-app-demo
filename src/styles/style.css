@@ -1,23 +1,80 @@
+@import url("https://fonts.googleapis.com/css?family=Roboto:400,500,700");
+* {
+  margin: 0;
+  padding: 0;
+  font-family: roboto;
+}
+
 body {
   background-color: rgb(255, 255, 255);
   color: rgb(0, 0, 0);
 }
 
-a {
+nav {
+  background-color: rgb(219, 218, 218);
+  color: rgb(0, 0, 0);
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  padding: 0 20px;
+  height: 10vh;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+}
+nav li {
+  list-style: none;
+  margin-left: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
+}
+nav li:hover {
+  color: rgb(0, 0, 0);
+  background-color: rgb(187, 185, 185);
+}
+nav li a {
   color: rgb(0, 0, 0);
   text-decoration: none;
-  font-size: large;
-  font-weight: 900;
+}
+
+.app {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 90vh;
+}
+.app .login h3 {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+.app .login form {
+  margin-top: 20px;
+  width: 200px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.app .login input {
+  width: 100%;
+  padding: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+.app .login button {
+  background-color: rgb(0, 0, 0);
+  color: rgb(255, 255, 255);
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  margin-top: 0.5rem;
+  width: 100%;
+  padding: 0.5rem;
+  margin-bottom: 0.5rem;
+  border-radius: 5px;
+  border: none;
+}
+.app .login button:hover {
+  background-color: rgb(34, 61, 123);
 }/*# sourceMappingURL=style.css.map */
-
-
-.login{
-  text-align:center; 
-  vertical-align:middle;
-}
-
-.loginForm {
-  display: inline-block;
-  vertical-align: middle;
-  line-height: 14px; 
-}

@@ -1,12 +1,13 @@
 import ChatPage from "./ChatPage";
-import { LoginForm, RegisterForm } from "./AuthPage";
+import Login from "./Login";
+import Register from "./Register";
 import Info from "./Info";
 import Debugging from "./Debugging";
 import { ChatRoom } from "./ChatPage";
 export {
     ChatPage,
-    LoginForm,
-    RegisterForm,
+    Login,
+    Register,
     Info,
     Debugging,
     ChatRoom
