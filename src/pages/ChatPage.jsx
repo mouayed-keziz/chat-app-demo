@@ -15,8 +15,6 @@ export default function ChatPage() {
         }
         getUser();
     }, [id]);
-    console.log(user);
-
 
     return (
         <div>
