@@ -221,6 +221,7 @@ nav li a {
   margin-right: 10px;
 }
 .chatpage .messagesSection {
+  background-color: rgb(211, 211, 211);
   width: 70vw;
   height: 70vh;
   display: flex;
@@ -238,7 +239,6 @@ nav li a {
 .chatpage .messagesSection .message {
   width: 100%;
   height: 20px;
-  background-color: rgb(255, 255, 255);
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -252,9 +252,11 @@ nav li a {
 }
 .chatpage .messagesSection .send {
   justify-content: flex-end;
+  margin-right: 20px;
 }
 .chatpage .messagesSection .received {
   justify-content: flex-start;
+  margin-left: 20px;
 }
 .chatpage .messageInputSection {
   width: 70vw;
